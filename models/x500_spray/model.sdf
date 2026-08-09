@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version='1.9'>
+  <model name='x500_spray'>
+    <include merge='true'>
+      <uri>model://x500_base</uri>
+    </include>
+
+    <!-- ================================================================
+         Spray payload: a dummy tank + a nozzle link, rigidly fixed under
+         base_link. The nozzle link's +X axis is the spray direction; it is
+         rotated pitch +90deg so +X points straight down (-Z).
+
+         NOTE (dummy geometry): the tank is a plain box and the nozzle has no
+         visual for now. To use the real spray-gun mesh later, drop
+         spray_gun.glb into this model's meshes/ dir, replace the tank <box>
+         visual with a <mesh> uri, and tune the nozzle_joint offset to the
+         mesh's actual nozzle tip. Also revisit the tank mass below once the
+         payload is real.
+         ================================================================ -->
+    <link name="spray_tank_link">
+      <pose relative_to="base_link">0 0 -0.06 0 0 0</pose>
+      <inertial>
+        <mass>0.15</mass>
+        <inertia>
+          <ixx>0.0002</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0002</iyy>
+          <iyz>0</iyz>
+          <izz>0.0002</izz>
+        </inertia>
+      </inertial>
+      <visual name="spray_tank_visual">
+        <geometry>
+          <box>
+            <size>0.09 0.09 0.08</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.25 1</ambient>
+          <diffuse>0.3 0.3 0.35 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <link name="spray_nozzle_link">
+      <!-- Just below the tank, pitched so +X (spray axis) points down. -->
+      <pose relative_to="spray_tank_link">0 0 -0.05 0 1.5707963 0</pose>
+      <inertial>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name="spray_tank_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>spray_tank_link</child>
+    </joint>
+
+    <joint name="spray_nozzle_joint" type="fixed">
+      <parent>spray_tank_link</parent>
+      <child>spray_nozzle_link</child>
+    </joint>
+
+    <!-- Motor plugins (identical to the stock x500) -->
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_0_joint</jointName>
+      <linkName>rotor_0</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_1_joint</jointName>
+      <linkName>rotor_1</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_2_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_3_joint</jointName>
+      <linkName>rotor_3</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>3</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="MotorFailurePlugin"
+      name="gz::sim::systems::MotorFailureSystem">
+    </plugin>
+
+    <!-- Spray paint system plugin (built by src/modules/simulation/gz_plugins) -->
+    <plugin filename="SprayPaintPlugin"
+      name="gz::sim::systems::SprayPaintPlugin">
+      <nozzle_link>spray_nozzle_link</nozzle_link>
+      <cone_half_angle_deg>15</cone_half_angle_deg>
+      <cone_max_range>3.0</cone_max_range>
+      <spray_color>1.0 0.2 0.1 1.0</spray_color>
+      <spray_topic>/spray_paint/trigger</spray_topic>
+      <particle_rate>100</particle_rate>
+      <num_rays>16</num_rays>
+      <patch_spacing>0.02</patch_spacing>
+      <paint_interval_steps>10</paint_interval_steps>
+      <enable_particle_emitter>true</enable_particle_emitter>
+    </plugin>
+  </model>
+</sdf>

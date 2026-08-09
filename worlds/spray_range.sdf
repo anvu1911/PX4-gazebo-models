@@ -8,11 +8,11 @@
   prints: "Raycast is not supported by 'ode'". Selecting the 'bullet' collision
   detector (engine stays dartsim) enables ray casting so paint is deposited.
 
-  World name is 'spray' to match PX4_GZ_WORLD=spray (px4-rc.gzsim loads
-  worlds/${PX4_GZ_WORLD}.sdf and addresses /world/${PX4_GZ_WORLD}/...).
+  World name is 'spray_range' to match PX4_GZ_WORLD=spray_range (px4-rc.gzsim
+  loads worlds/${PX4_GZ_WORLD}.sdf and addresses /world/${PX4_GZ_WORLD}/...).
 -->
 <sdf version="1.9">
-  <world name="spray">
+  <world name="spray_range">
     <physics name="250hz" type="dart">
       <max_step_size>0.004</max_step_size>
       <real_time_factor>1.0</real_time_factor>

@@ -146,6 +146,10 @@
     <plugin filename="SprayPaintPlugin"
       name="gz::sim::systems::SprayPaintPlugin">
       <nozzle_link>spray_nozzle_link</nozzle_link>
+      <!-- Ground surface the patches attach to, and its world Z. The cone is
+           projected analytically onto this plane instead of being raycast. -->
+      <ground_link>link</ground_link>
+      <ground_height>0.0</ground_height>
       <cone_half_angle_deg>15</cone_half_angle_deg>
       <cone_max_range>3.0</cone_max_range>
       <spray_color>1.0 0.2 0.1 1.0</spray_color>
@@ -157,10 +161,14 @@
       <patch_color>0.0 0.0 0.0 0.4</patch_color>
       <spray_topic>/spray_paint/trigger</spray_topic>
       <particle_rate>100</particle_rate>
-      <num_rays>16</num_rays>
-      <patch_spacing>0.02</patch_spacing>
+      <!-- Ground cell pitch: at most one patch visual per cell, so the entity
+           count is bounded by sprayed area / patch_spacing^2 rather than by
+           spray duration. Halving this quadruples the patch count. -->
+      <patch_spacing>0.5</patch_spacing>
       <paint_interval_steps>10</paint_interval_steps>
-      <enable_particle_emitter>true</enable_particle_emitter>
+      <!-- Airborne mist is the dominant render cost and adds nothing to the
+           deposition model; the ground patches carry the "sprayed" signal. -->
+      <enable_particle_emitter>false</enable_particle_emitter>
     </plugin>
   </model>
 </sdf>

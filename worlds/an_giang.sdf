@@ -61,6 +61,17 @@
       <pose>0 0 0 0 0 0</pose>
       <static>true</static>
       <link name="environment_link">
+        <!--
+          Do NOT lift these collision meshes to compensate for the fact that
+          they sit ~0.4 m below the visual surface (see the plugin README,
+          "Open gap: patches invisible on curved terrain"). That was tried and
+          reverted: the vehicle spawns at z~0 on spawn_support_link, so raising
+          the terrain collision above it leaves the drone underneath the ground
+          and unable to take off.
+
+          Use the plugin's <patch_lift> parameter instead - it moves only the
+          patch visual and leaves physics untouched.
+        -->
         <collision name="terrain_collision">
           <geometry>
             <mesh>

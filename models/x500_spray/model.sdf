@@ -168,6 +168,17 @@
            count is bounded by sprayed area / patch_spacing^2 rather than by
            spray duration. Halving this quadruples the patch count. -->
       <patch_spacing>0.5</patch_spacing>
+      <!-- How far the patch disc is pushed off the surface along its normal (m).
+           0.0015 = half the disc thickness, enough to stop z-fighting on a
+           surface the probe hit exactly. Correct for spray_range, whose ground
+           plane is both the collision and the visual surface.
+
+           Raise it where the rendered surface is NOT the surface the probe hit.
+           In an_giang the collision proxy sits below the visual mesh (median
+           -408 mm), so patches are buried; ~0.45 surfaces roughly half of them.
+           Purely visual - physics and the recorded cell are unaffected. -->
+      <!-- <patch_lift>0.0015</patch_lift> -->
+      <patch_lift>0.45</patch_lift> <!-- an_giang -->
       <paint_interval_steps>10</paint_interval_steps>
       <!-- Airborne mist is the dominant render cost and adds nothing to the
            deposition model; the ground patches carry the "sprayed" signal. -->

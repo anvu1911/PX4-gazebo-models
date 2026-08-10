@@ -1,0 +1,1540 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.9">
+  <!--
+    An Giang v6 (green season, connection-safe) rice-field terrain.
+
+    Renamed from 'an-giang-v6-season-green-connection-safe' to 'an_giang':
+    px4-rc.gzsim loads worlds/${PX4_GZ_WORLD}.sdf and addresses gz topics as
+    /world/${PX4_GZ_WORLD}/..., so the file name and <world name> must match.
+
+    Mesh assets are NOT vendored here (~152 MB). Point Gazebo at them before
+    launching:
+      export GZ_SIM_RESOURCE_PATH=/home/anvu/UAV/gz/models:$GZ_SIM_RESOURCE_PATH
+    gz_env.sh appends to GZ_SIM_RESOURCE_PATH rather than overwriting it, so an
+    externally exported path survives.
+
+    The bullet collision detector is required: SprayPaintPlugin probes the
+    ground with a raycast, and DART's default 'ode' detector does not support
+    ray intersection (it warns "Raycast is not supported by 'ode'" and deposits
+    no paint).
+  -->
+  <world name="an_giang">
+    <physics name="skytrack_4ms" type="dart">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+      <dart>
+        <collision_detector>bullet</collision_detector>
+      </dart>
+    </physics>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type="adiabatic" />
+    <scene>
+      <ambient>0.55 0.55 0.55 1</ambient>
+      <background>0.72 0.82 0.92 1</background>
+      <shadows>false</shadows>
+    </scene>
+    <light name="sun" type="directional">
+      <pose>0 0 500 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <direction>-0.35 0.25 -0.9</direction>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.15 0.15 0.15 1</specular>
+      <intensity>1.1</intensity>
+      <attenuation>
+        <range>2000</range>
+        <constant>1</constant>
+        <linear>0</linear>
+        <quadratic>0</quadratic>
+      </attenuation>
+    </light>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>10.46637489</latitude_deg>
+      <longitude_deg>104.80105089</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name="an-giang-v6-season-green-connection-safe-environment">
+      <pose>0 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="environment_link">
+        <collision name="terrain_collision">
+          <geometry>
+            <mesh>
+              <uri>model://an-giang-v6-season-green-connection-safe/meshes/collision_terrain_connection_safe.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <collision name="canal_bank_collision">
+          <geometry>
+            <mesh>
+              <uri>model://an-giang-v6-season-green-connection-safe/meshes/collision_canal_banks.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://an-giang-v6-season-green-connection-safe/meshes/model.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name="proxy_tree_0">
+          <pose>165.500000 432.720001 4.853897 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.189975</radius>
+              <length>7.832500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_8">
+          <pose>94.339996 497.179993 6.652402 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.770719</radius>
+              <length>11.655001</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_16">
+          <pose>-238.399994 395.269989 4.216530 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.222411</radius>
+              <length>8.046000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_24">
+          <pose>-111.230003 322.209991 3.683166 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.831501</radius>
+              <length>5.472999</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_32">
+          <pose>-18.990000 370.709991 5.738676 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.524596</radius>
+              <length>10.035000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_40">
+          <pose>40.970001 -258.540009 4.777358 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.172199</radius>
+              <length>7.715500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_48">
+          <pose>42.290001 499.019989 4.163078 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.129431</radius>
+              <length>7.434000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_56">
+          <pose>-191.619995 -190.399994 4.169863 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.951980</radius>
+              <length>6.266000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_64">
+          <pose>162.869995 445.000000 2.498792 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.652383</radius>
+              <length>4.276800</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_72">
+          <pose>-58.520000 274.329987 4.335887 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.033945</radius>
+              <length>6.805500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_80">
+          <pose>-119.800003 464.029999 4.754775 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.281815</radius>
+              <length>8.437000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_88">
+          <pose>24.500000 -211.880005 4.655593 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.172199</radius>
+              <length>7.715500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_96">
+          <pose>113.449997 -127.779999 4.987147 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.230463</radius>
+              <length>8.099000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_104">
+          <pose>-60.500000 306.250000 4.880848 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.274902</radius>
+              <length>8.391500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_112">
+          <pose>131.240005 397.109985 2.884676 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.867052</radius>
+              <length>5.707000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_120">
+          <pose>-258.829987 155.850006 4.587270 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.126773</radius>
+              <length>7.416500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_128">
+          <pose>148.369995 465.250000 4.378755 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.240187</radius>
+              <length>8.163000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_136">
+          <pose>-84.220001 492.269989 4.645637 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.128064</radius>
+              <length>7.425000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_144">
+          <pose>-140.279968 355.980011 5.885834 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.757045</radius>
+              <length>11.565000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_152">
+          <pose>-111.889999 295.200012 3.430529 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.983581</radius>
+              <length>6.474000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_160">
+          <pose>-192.940002 -168.300003 3.496676 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.843351</radius>
+              <length>5.551000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_168">
+          <pose>205.039993 -180.570007 2.878722 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.580057</radius>
+              <length>4.089600</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_176">
+          <pose>-220.610001 469.549988 3.795642 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.043820</radius>
+              <length>6.870499</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_184">
+          <pose>144.419998 -218.020004 4.318451 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.054683</radius>
+              <length>6.942000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_192">
+          <pose>-155.380005 -34.470001 5.167814 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.262064</radius>
+              <length>8.307000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_200">
+          <pose>81.169998 328.970001 3.728834 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.961855</radius>
+              <length>6.331000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_208">
+          <pose>130.580002 -214.949997 4.486990 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.240187</radius>
+              <length>8.163000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_216">
+          <pose>-121.779999 487.970001 4.119417 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.033945</radius>
+              <length>6.805500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_224">
+          <pose>-28.209999 -27.100000 2.871024 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.431231</radius>
+              <length>3.704400</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_232">
+          <pose>-58.520000 -161.539993 2.942500 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.839401</radius>
+              <length>5.525000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_240">
+          <pose>-125.730003 178.559998 3.381177 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.948030</radius>
+              <length>6.240000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_248">
+          <pose>166.820007 387.290009 4.738088 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.442555</radius>
+              <length>9.495000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_256">
+          <pose>-61.160000 515.590027 2.989735 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.890753</radius>
+              <length>5.862999</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_264">
+          <pose>-152.089996 -160.929993 4.829794 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.231983</radius>
+              <length>8.109000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_272">
+          <pose>156.279999 154.000000 6.085667 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.561514</radius>
+              <length>10.278001</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_280">
+          <pose>6.050000 390.359985 3.375554 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.998394</radius>
+              <length>6.571499</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_288">
+          <pose>64.029999 -221.089996 2.197098 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.168352</radius>
+              <length>3.024000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_296">
+          <pose>-22.280001 200.050003 5.396598 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.431616</radius>
+              <length>9.423000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_304">
+          <pose>80.510002 402.019989 2.568992 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.706628</radius>
+              <length>4.417200</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_312">
+          <pose>120.699997 479.989990 4.131814 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.017157</radius>
+              <length>6.695000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_320">
+          <pose>165.500000 -186.710007 4.681392 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.173187</radius>
+              <length>7.722000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_328">
+          <pose>-209.410004 497.179993 1.870553 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.180870</radius>
+              <length>3.056400</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_336">
+          <pose>-114.529999 396.500000 4.288323 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.993456</radius>
+              <length>6.538999</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_344">
+          <pose>102.250000 -129.009995 4.963995 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.209725</radius>
+              <length>7.962499</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_352">
+          <pose>99.610001 -219.250000 6.016559 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.765249</radius>
+              <length>11.619000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_360">
+          <pose>201.089996 -185.490005 4.874372 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.304452</radius>
+              <length>8.586000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_368">
+          <pose>-57.860001 199.429993 3.262333 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.959880</radius>
+              <length>6.318000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_376">
+          <pose>-6.470000 514.369995 4.482995 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.063571</radius>
+              <length>7.000500</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_384">
+          <pose>110.160004 544.450012 4.731383 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.119860</radius>
+              <length>7.371000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_392">
+          <pose>-119.139999 472.010010 3.606627 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.813725</radius>
+              <length>5.356000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_400">
+          <pose>42.950001 500.250000 5.422500 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.592963</radius>
+              <length>10.485000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_408">
+          <pose>-136.270004 343.700012 4.182098 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.062583</radius>
+              <length>6.994000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_tree_416">
+          <pose>-245.649994 502.700012 4.617677 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.253860</radius>
+              <length>8.253000</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_hmodel_old_0">
+          <pose>134.539994 -234.600006 3.360496 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6.084255 6.800001 5.008834</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_0">
+          <pose>101.419935 540.004710 3.009923 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>76.064783 21.290054 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_1">
+          <pose>-93.939652 474.316178 3.926555 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>48.133120 18.083566 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_3">
+          <pose>-152.413028 471.720290 3.629850 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>32.160728 17.042899 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_4">
+          <pose>23.257088 543.237727 3.942090 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>19.547689 31.729109 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_5">
+          <pose>27.339581 487.286135 3.648915 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>31.759347 18.851946 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hblock_viet_6">
+          <pose>-43.359864 481.795434 3.898259 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>31.933944 17.220751 5.796961</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_0">
+          <pose>76.618731 -232.863867 2.781535 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>7.906279 8.223209 5.563069</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_1">
+          <pose>77.441922 -205.699483 3.074828 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>8.722237 7.973797 6.026822</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_2">
+          <pose>-68.484654 -160.779376 2.931852 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>8.502007 8.661039 5.863705</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_3">
+          <pose>96.602362 220.116503 2.593090 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6.354803 6.158890 5.186180</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_4">
+          <pose>-207.782953 -147.810150 2.578555 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>7.425458 6.751826 5.157111</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_5">
+          <pose>-38.506700 524.324736 3.591813 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>7.664333 7.217992 5.202989</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_6">
+          <pose>134.664089 473.007292 2.854054 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>7.638493 8.299645 5.705819</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_hstilt_7">
+          <pose>-255.359439 463.908499 3.359959 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6.523928 6.959461 5.279473</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_vil_0">
+          <pose>-205.084530 471.308263 5.562393 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2.583458 2.328696 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_vil_1">
+          <pose>-119.103205 461.201853 5.458679 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.696269 3.020058 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_vil_2">
+          <pose>-28.979379 491.248172 5.296333 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.424173 3.403097 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_vil_3">
+          <pose>71.057288 497.268462 5.282799 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.102188 3.272620 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_vil_4">
+          <pose>135.010416 463.322411 5.413589 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.107955 1.526236 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_0">
+          <pose>-50.653773 -155.349842 5.271133 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_1">
+          <pose>-229.069092 240.637835 5.663147 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.229525 1.233041 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_2">
+          <pose>168.766974 410.899720 5.164497 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.405558 0.389747 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_3">
+          <pose>-59.412316 272.863212 5.574402 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.549792 3.096583 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_4">
+          <pose>163.625697 447.260972 5.285683 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.318945 3.197598 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_5">
+          <pose>-59.438510 194.989981 5.022430 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2.853979 1.974920 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_6">
+          <pose>85.392303 -24.130796 5.159515 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2.731179 2.148899 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_7">
+          <pose>105.763923 81.317642 5.362221 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.662927 3.371825 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_8">
+          <pose>-138.771427 -126.273605 5.789337 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.369049 0.681046 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_9">
+          <pose>101.418036 167.210757 5.631424 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2.201632 2.690211 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_10">
+          <pose>130.953806 429.998073 5.729988 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.406500 0.350000 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_11">
+          <pose>135.488806 382.592462 5.582008 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.269768 1.111499 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_12">
+          <pose>-154.750255 -120.766390 5.691757 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2.669484 2.227426 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_13">
+          <pose>139.415212 -216.688226 5.786041 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.903102 3.325981 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_14">
+          <pose>13.195297 -273.380649 5.410530 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.247306 3.224427 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_0">
+          <pose>-94.706435 -140.780170 5.472206 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_1">
+          <pose>-18.729833 -214.363574 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_2">
+          <pose>76.313592 -245.045093 4.327500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_3">
+          <pose>-5.267034 -111.608028 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_4">
+          <pose>40.119706 -67.866222 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_5">
+          <pose>95.683968 28.629254 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_6">
+          <pose>103.660661 124.278538 5.097892 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_7">
+          <pose>47.864724 176.446972 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_8">
+          <pose>-5.730388 185.719784 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_9">
+          <pose>-115.941497 262.115796 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_10">
+          <pose>-172.467902 251.359158 4.327500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_11">
+          <pose>112.805207 238.999188 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_pole_fld_ext_12">
+          <pose>124.150575 310.824231 4.687500 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.065475 3.283547 9.375000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_2">
+          <pose>13.108923 -273.282686 2.135339 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.393072</radius>
+              <length>2.142049</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_49">
+          <pose>-19.010383 -234.556844 1.972406 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.875829</radius>
+              <length>1.960498</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_86">
+          <pose>129.810172 -230.492781 1.701948 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.325078</radius>
+              <length>2.312523</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_145">
+          <pose>35.051589 -209.293140 2.092142 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.626283</radius>
+              <length>2.172912</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_203">
+          <pose>-176.566946 -186.347027 2.082930 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.276256</radius>
+              <length>2.019192</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_260">
+          <pose>-49.917107 -177.613646 1.871276 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.607119</radius>
+              <length>1.586864</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_297">
+          <pose>-176.254044 -174.392202 1.925028 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.266660</radius>
+              <length>1.802605</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_344">
+          <pose>-174.389364 -162.711900 2.029788 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.580488</radius>
+              <length>1.903889</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_380">
+          <pose>-108.642870 -139.876397 2.118082 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.834132</radius>
+              <length>2.008320</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_428">
+          <pose>103.132093 -130.709733 2.016062 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.164026</radius>
+              <length>1.741144</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_466">
+          <pose>-154.767833 -120.748800 2.285779 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.162292</radius>
+              <length>2.415871</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_504">
+          <pose>175.247622 -40.665734 2.050478 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.065790</radius>
+              <length>1.963309</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_544">
+          <pose>-11.434807 -28.232798 2.293092 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>3.021484</radius>
+              <length>2.493635</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_581">
+          <pose>172.956471 -14.129809 2.144807 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.947486</radius>
+              <length>2.151967</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_619">
+          <pose>192.924642 50.976891 1.814939 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.486291</radius>
+              <length>1.555368</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_665">
+          <pose>6.265032 118.276703 1.910932 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.708443</radius>
+              <length>1.684217</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_713">
+          <pose>-228.503683 157.745543 1.747347 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.577105</radius>
+              <length>1.465282</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_749">
+          <pose>87.453917 176.805737 1.794851 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.522327</radius>
+              <length>1.515193</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_788">
+          <pose>-47.379458 195.668480 2.109487 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.661603</radius>
+              <length>2.099366</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_843">
+          <pose>-10.482769 223.160173 2.266182 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.415519</radius>
+              <length>2.394716</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_892">
+          <pose>-231.092078 251.521299 1.441544 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.450983</radius>
+              <length>1.412891</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_934">
+          <pose>-16.849222 272.667631 1.706372 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.770211</radius>
+              <length>1.437451</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_983">
+          <pose>174.422651 311.114382 1.817248 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.656290</radius>
+              <length>1.496849</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1025">
+          <pose>171.265527 336.126897 2.101714 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.136385</radius>
+              <length>2.011664</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1059">
+          <pose>173.346302 345.106428 2.066111 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.015810</radius>
+              <length>1.949476</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1111">
+          <pose>-235.332024 367.752334 2.024265 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.936781</radius>
+              <length>1.910883</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1151">
+          <pose>-143.701185 392.514654 2.243799 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.045877</radius>
+              <length>2.331911</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1193">
+          <pose>133.687891 394.537784 2.188313 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.246526</radius>
+              <length>2.410352</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1236">
+          <pose>94.519922 410.260393 1.248030 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>1.340286</radius>
+              <length>1.422727</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="proxy_bush_1281">
+          <pose>-310.577903 432.579510 2.271041 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>2.947661</radius>
+              <length>2.539730</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_0">
+          <pose>-162.093867 466.255058 9.008679 0 0 -0.117005</pose>
+          <geometry>
+            <box>
+              <size>86.573251 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_1">
+          <pose>-74.041292 476.225013 8.846333 0 0 0.321801</pose>
+          <geometry>
+            <box>
+              <size>95.000449 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_2">
+          <pose>21.038954 494.258317 8.832799 0 0 0.060108</pose>
+          <geometry>
+            <box>
+              <size>100.217656 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_3">
+          <pose>103.033852 480.295436 8.832799 0 0 -0.487980</pose>
+          <geometry>
+            <box>
+              <size>72.403984 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_4">
+          <pose>-56.718134 -177.571872 8.237500 0 0 -0.769398</pose>
+          <geometry>
+            <box>
+              <size>105.768433 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_5">
+          <pose>28.791880 -229.704334 7.877500 0 0 -0.312255</pose>
+          <geometry>
+            <box>
+              <size>99.872961 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_6">
+          <pose>35.523279 -178.326560 7.877500 0 0 2.119541</pose>
+          <geometry>
+            <box>
+              <size>156.399645 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_7">
+          <pose>17.426336 -89.737125 8.237500 0 0 0.766945</pose>
+          <geometry>
+            <box>
+              <size>63.034132 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_8">
+          <pose>67.901837 -19.618484 8.237500 0 0 1.048344</pose>
+          <geometry>
+            <box>
+              <size>111.349738 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_9">
+          <pose>99.672314 76.453896 8.237500 0 0 1.487594</pose>
+          <geometry>
+            <box>
+              <size>95.981317 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_10">
+          <pose>75.762692 150.362755 8.237500 0 0 2.389781</pose>
+          <geometry>
+            <box>
+              <size>76.385418 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_11">
+          <pose>21.067168 181.083378 8.237500 0 0 2.970273</pose>
+          <geometry>
+            <box>
+              <size>54.391369 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_12">
+          <pose>-60.835943 223.917790 8.237500 0 0 2.535459</pose>
+          <geometry>
+            <box>
+              <size>134.100109 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_13">
+          <pose>-144.204700 256.737477 7.877500 0 0 0.188046</pose>
+          <geometry>
+            <box>
+              <size>57.540766 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_14">
+          <pose>118.477891 274.911710 8.237500 0 0 1.414132</pose>
+          <geometry>
+            <box>
+              <size>72.715570 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_15">
+          <pose>-94.712600 -140.811723 8.821133 0 0 2.822872</pose>
+          <geometry>
+            <box>
+              <size>92.790886 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_16">
+          <pose>166.196336 429.080346 8.714497 0 0 1.711260</pose>
+          <geometry>
+            <box>
+              <size>36.722927 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_17">
+          <pose>-59.425413 233.926596 8.572430 0 0 -1.571133</pose>
+          <geometry>
+            <box>
+              <size>77.873235 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_18">
+          <pose>95.578113 28.593423 8.709515 0 0 1.379957</pose>
+          <geometry>
+            <box>
+              <size>107.398212 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_19">
+          <pose>103.590980 124.264200 8.912221 0 0 1.621350</pose>
+          <geometry>
+            <box>
+              <size>86.002988 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_20">
+          <pose>-146.760841 -123.519998 9.241757 0 0 -0.331907</pose>
+          <geometry>
+            <box>
+              <size>16.901253 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_21">
+          <pose>147.289751 438.629523 8.835683 0 0 0.486086</pose>
+          <geometry>
+            <box>
+              <size>36.952133 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_22">
+          <pose>152.127890 396.746091 8.714497 0 0 0.704857</pose>
+          <geometry>
+            <box>
+              <size>43.689098 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_23">
+          <pose>76.305255 -245.034437 8.960530 0 0 -2.719441</pose>
+          <geometry>
+            <box>
+              <size>138.367257 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_24">
+          <pose>-18.729238 -214.365246 8.821133 0 0 -1.074926</pose>
+          <geometry>
+            <box>
+              <size>134.193797 0.550000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_25">
+          <pose>-72.680104 -148.065006 8.821133 0 0 2.822184</pose>
+          <geometry>
+            <box>
+              <size>46.399487 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_26">
+          <pose>-200.768497 245.998496 7.877500 0 0 0.187201</pose>
+          <geometry>
+            <box>
+              <size>57.607651 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_27">
+          <pose>-87.676907 267.489504 8.237500 0 0 -2.953713</pose>
+          <geometry>
+            <box>
+              <size>57.541770 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_28">
+          <pose>-32.584449 190.354883 8.237500 0 0 -0.170919</pose>
+          <geometry>
+            <box>
+              <size>54.502284 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_29">
+          <pose>90.538135 2.249229 8.237500 0 0 1.378150</pose>
+          <geometry>
+            <box>
+              <size>53.754453 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_30">
+          <pose>104.712292 102.798090 8.647892 0 0 1.619715</pose>
+          <geometry>
+            <box>
+              <size>43.012351 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_31">
+          <pose>-116.738931 -133.526887 9.022206 0 0 -0.318034</pose>
+          <geometry>
+            <box>
+              <size>46.391421 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_32">
+          <pose>102.539349 145.744647 8.647892 0 0 -1.518607</pose>
+          <geometry>
+            <box>
+              <size>42.990752 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_33">
+          <pose>-124.728345 -130.773280 9.022206 0 0 -0.321738</pose>
+          <geometry>
+            <box>
+              <size>63.291482 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_34">
+          <pose>107.864402 -230.866659 7.877500 0 0 -2.719251</pose>
+          <geometry>
+            <box>
+              <size>69.180390 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="wire_proxy_35">
+          <pose>-2.767268 -243.872112 8.237500 0 0 2.066663</pose>
+          <geometry>
+            <box>
+              <size>67.098652 0.650000 0.550000</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="an-giang-v6-season-green-connection-safe-spawn-support">
+      <pose>0 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="spawn_support_link">
+        <collision name="spawn_support_collision">
+          <pose>0 0 -0.020 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>12.0 12.0 0.04</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <collide_without_contact>false</collide_without_contact>
+              <ode>
+                <kp>1500000</kp>
+                <kd>150</kd>
+                <max_vel>0.05</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+      </link>
+    </model>
+  </world>
+</sdf>

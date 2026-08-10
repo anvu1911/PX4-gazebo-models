@@ -146,10 +146,13 @@
     <plugin filename="SprayPaintPlugin"
       name="gz::sim::systems::SprayPaintPlugin">
       <nozzle_link>spray_nozzle_link</nozzle_link>
-      <!-- Ground surface the patches attach to, and its world Z. The cone is
-           projected analytically onto this plane instead of being raycast. -->
-      <ground_link>link</ground_link>
-      <ground_height>0.0</ground_height>
+      <!-- Ground surface the patches attach to. Whitespace-separated candidate
+           link names, tried in order; the first that exists outside the drone's
+           own model wins. The raycast reports no hit entity, so the surface
+           cannot be auto-detected and must be named.
+             link             -> spray_range.sdf (ground_plane)
+             environment_link -> an_giang.sdf    (terrain mesh) -->
+      <ground_link>link environment_link</ground_link>
       <cone_half_angle_deg>15</cone_half_angle_deg>
       <cone_max_range>3.0</cone_max_range>
       <spray_color>1.0 0.2 0.1 1.0</spray_color>

@@ -1520,8 +1520,15 @@
       <pose>0 0 0 0 0 0</pose>
       <static>true</static>
       <link name="spawn_support_link">
+        <!-- Pad top raised to z=+0.15 so the vehicle spawns ABOVE the terrain
+             collision lip (the collision mesh pokes up to ~+0.045 m at the
+             origin; a drone spawned at z=0 gets boxed between this pad and that
+             lip and cannot take off). Must be paired with a raised spawn
+             altitude: launch with PX4_GZ_MODEL_POSE="0,0,0.25" so the drone
+             drops onto the pad top, not under it. See this plugin's README,
+             "Offset the collision pose upward". -->
         <collision name="spawn_support_collision">
-          <pose>0 0 -0.020 0 0 0</pose>
+          <pose>0 0 0.13 0 0 0</pose>
           <geometry>
             <box>
               <size>12.0 12.0 0.04</size>

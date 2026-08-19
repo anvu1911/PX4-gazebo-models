@@ -153,7 +153,13 @@
              link             -> spray_range.sdf (ground_plane)
              environment_link -> an_giang.sdf    (terrain mesh) -->
       <ground_link>link environment_link</ground_link>
-      <cone_half_angle_deg>15</cone_half_angle_deg>
+      <!-- Half-angle sets the swath: 2 * h * tan(angle). 40 deg gives a ~5.0 m
+           swath at a 3 m pass, matching real agricultural sprayers. The earlier
+           15 deg gave only 1.6 m, which concentrated the flow ~3x and pushed
+           every mission past the design doc's over-spray threshold no matter
+           how it was flown. Changing this rescales deposition by 1/tan^2, so
+           re-check flow_rate_lpm below whenever it moves. -->
+      <cone_half_angle_deg>40</cone_half_angle_deg>
       <cone_max_range>3.0</cone_max_range>
       <spray_color>1.0 0.2 0.1 1.0</spray_color>
       <!-- Crop-spray look (RGBA, 0-1): a visible light-grey mist in the air,
@@ -189,10 +195,15 @@
            widens the cone and thins the deposit, so altitude is handled without
            a separate term.
 
-           At Q=5 L/min, eta=0.7, 25 scans/s and h=3 m the increment is
-           ~1.15 ml/m^2 per scan, which sits between the design doc's
-           D_min=0.5 and D_max=1.5 - one clean pass scores on target. -->
-      <flow_rate_lpm>5.0</flow_rate_lpm>
+           Q is paired with cone_half_angle_deg above: 1.7 L/min over the 5.0 m
+           swath at h=3 m, v=5 m/s deposits ~1.0 ml/m^2, mid-way between the
+           design doc's D_min=0.5 and D_max=1.5, so a clean pass scores on
+           target and both under- and over-spray remain reachable.
+
+           The doc quotes 5 L/min, which assumes the 4-6 m swath of a real
+           sprayer. Only lift Q back toward that once the swath is that wide;
+           at a narrower cone the same flow grades as pure over-spray. -->
+      <flow_rate_lpm>1.7</flow_rate_lpm>
       <deposition_efficiency>0.7</deposition_efficiency>
       <!-- Ground truth grid for deposition tracking (optional).
            Path supports ~ expansion for $HOME. If specified, drone position

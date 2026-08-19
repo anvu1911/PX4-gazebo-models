@@ -183,6 +183,17 @@
       <!-- Airborne mist is the dominant render cost and adds nothing to the
            deposition model; the ground patches carry the "sprayed" signal. -->
       <enable_particle_emitter>false</enable_particle_emitter>
+      <!-- Deposition model (see ~/UAV/docs/spray_simulation_design.md S2).
+           Each scan deposits  Q * eta * dt / (pi * R^2)  ml/m^2 over the cone
+           footprint, R being the cone radius at the probe hit. Flying higher
+           widens the cone and thins the deposit, so altitude is handled without
+           a separate term.
+
+           At Q=5 L/min, eta=0.7, 25 scans/s and h=3 m the increment is
+           ~1.15 ml/m^2 per scan, which sits between the design doc's
+           D_min=0.5 and D_max=1.5 - one clean pass scores on target. -->
+      <flow_rate_lpm>5.0</flow_rate_lpm>
+      <deposition_efficiency>0.7</deposition_efficiency>
       <!-- Ground truth grid for deposition tracking (optional).
            Path supports ~ expansion for $HOME. If specified, drone position
            and spray coverage are accumulate into grid cells for validation.

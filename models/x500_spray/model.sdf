@@ -153,14 +153,22 @@
              link             -> spray_range.sdf (ground_plane)
              environment_link -> an_giang.sdf    (terrain mesh) -->
       <ground_link>link environment_link</ground_link>
-      <!-- Half-angle sets the swath: 2 * h * tan(angle). 40 deg gives a ~5.0 m
-           swath at a 3 m pass, matching real agricultural sprayers. The earlier
-           15 deg gave only 1.6 m, which concentrated the flow ~3x and pushed
-           every mission past the design doc's over-spray threshold no matter
-           how it was flown. Changing this rescales deposition by 1/tan^2, so
-           re-check flow_rate_lpm below whenever it moves. -->
-      <cone_half_angle_deg>40</cone_half_angle_deg>
-      <cone_max_range>3.0</cone_max_range>
+      <!-- FROZEN per ~/UAV/docs/spray_quality_factors_v2.md S2.2.5: real nozzle
+           geometry, graded identically for every contestant, not a sim tuning
+           knob. Do not change this to fix over/under-spray scoring - the
+           intended lever for that is flight altitude/speed (see cone_max_range
+           below and the doc's S1, "altitude is the primary skill lever"). -->
+      <cone_half_angle_deg>15</cone_half_angle_deg>
+      <!-- Max slant range the ground probe will accept a hit at. Must cover the
+           hackathon's intended flight envelope (S1: altitude 5-20 m is the
+           primary skill lever - lower over-sprays, higher under-sprays, by
+           design) or every scan misses the ground and no dose is ever
+           recorded. Previously 3.0 m, which is below that whole envelope: it
+           silently forced every test flight down near the ground, and the
+           resulting "always over-sprays" reading was misdiagnosed as a
+           cone_half_angle_deg/flow_rate_lpm problem. 25 m covers up to h=20 m
+           at the plugin's steepest nozzle tilt with margin. -->
+      <cone_max_range>25.0</cone_max_range>
       <spray_color>1.0 0.2 0.1 1.0</spray_color>
       <!-- Crop-spray look (RGBA, 0-1): a visible light-grey mist in the air,
            and a translucent near-black ground patch that darkens the surface
@@ -193,17 +201,17 @@
            Each scan deposits  Q * eta * dt / (pi * R^2)  ml/m^2 over the cone
            footprint, R being the cone radius at the probe hit. Flying higher
            widens the cone and thins the deposit, so altitude is handled without
-           a separate term.
+           a separate term - this is what makes altitude the contestant's skill
+           lever rather than something the sim needs a separate rule for.
 
-           Q is paired with cone_half_angle_deg above: 1.7 L/min over the 5.0 m
-           swath at h=3 m, v=5 m/s deposits ~1.0 ml/m^2, mid-way between the
-           design doc's D_min=0.5 and D_max=1.5, so a clean pass scores on
-           target and both under- and over-spray remain reachable.
-
-           The doc quotes 5 L/min, which assumes the 4-6 m swath of a real
-           sprayer. Only lift Q back toward that once the swath is that wide;
-           at a narrower cone the same flow grades as pure over-spray. -->
-      <flow_rate_lpm>1.7</flow_rate_lpm>
+           FROZEN per spray_quality_factors_v2.md S2.2 (flow rate, alongside
+           nozzle/tank): real pump hardware, identical for every contestant.
+           At this value and the 15 deg cone above, a clean pass in the
+           doc's own intended envelope (S1: h=15-20 m, v=5-7 m/s) lands at
+           ~1.0-1.5 ml/m^2 - within the design doc's D_min=0.5/D_max=1.5 band.
+           Lower/slower over-sprays, higher/faster under-sprays, which is the
+           intended discrimination between flight skill, not a defect. -->
+      <flow_rate_lpm>5.0</flow_rate_lpm>
       <deposition_efficiency>0.7</deposition_efficiency>
       <!-- Ground truth grid for deposition tracking (optional).
            Path supports ~ expansion for $HOME. If specified, drone position

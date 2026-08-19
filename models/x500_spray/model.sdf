@@ -210,6 +210,14 @@
            and spray coverage are accumulate into grid cells for validation.
            See ~/UAV/docs/spray-footprint-modeling.md for velocity constraints. -->
       <ground_truth_grid>~/UAV/spray_simulation/ground_truth_grid.json</ground_truth_grid>
+      <!-- Re-export the deposition report every N seconds of sim time while
+           spray is active, so it can be tailed mid-mission for debugging.
+           Dose itself is never gated by this - every scan accumulates
+           regardless - this only controls how often the JSON on disk is
+           refreshed. The report is always written when spray toggles off and
+           again on clean shutdown, independent of this interval. <=0 disables
+           the periodic refresh (those two triggers still apply). -->
+      <grid_export_interval_sec>5.0</grid_export_interval_sec>
     </plugin>
   </model>
 </sdf>

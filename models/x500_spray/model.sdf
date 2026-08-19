@@ -183,6 +183,11 @@
       <!-- Airborne mist is the dominant render cost and adds nothing to the
            deposition model; the ground patches carry the "sprayed" signal. -->
       <enable_particle_emitter>false</enable_particle_emitter>
+      <!-- Ground truth grid for deposition tracking (optional).
+           Path supports ~ expansion for $HOME. If specified, drone position
+           and spray coverage are accumulate into grid cells for validation.
+           See ~/UAV/docs/spray-footprint-modeling.md for velocity constraints. -->
+      <ground_truth_grid>~/UAV/spray_simulation/ground_truth_grid.json</ground_truth_grid>
     </plugin>
   </model>
 </sdf>

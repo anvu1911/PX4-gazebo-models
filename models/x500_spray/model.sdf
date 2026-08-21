@@ -213,11 +213,25 @@
            intended discrimination between flight skill, not a defect. -->
       <flow_rate_lpm>5.0</flow_rate_lpm>
       <deposition_efficiency>0.7</deposition_efficiency>
-      <!-- Ground truth grid for deposition tracking (optional).
-           Path supports ~ expansion for $HOME. If specified, drone position
-           and spray coverage are accumulate into grid cells for validation.
-           See ~/UAV/docs/spray-footprint-modeling.md for velocity constraints. -->
+      <!-- Ground truth grid, for the in-sim deposition PREVIEW only (optional,
+           and off by default). Path supports ~ expansion for $HOME.
+
+           The mission's record is <scan_log> below, which is world-frame
+           metric throughout and carries no cell indices. Turning those
+           coordinates into grid cells happens once, offline, in
+           splat_scan_log.py - so that is where the grid is resolved, from the
+           world name recorded in the log header. The simulation does not need
+           it, and loading it here costs a 255 MB read at startup.
+
+           Uncomment to get the live centre-cell preview in
+           deposition_report.json while flying. The graded report still comes
+           from splat_scan_log.py either way; the preview credits only the cell
+           under the cone centre, not the footprint.
+
+           See ~/UAV/docs/spray-footprint-modeling.md for velocity constraints.
       <ground_truth_grid>~/UAV/spray_simulation/ground_truth_grid.json</ground_truth_grid>
+      -->
+
       <!-- Re-export the deposition report every N seconds of sim time while
            spray is active, so it can be tailed mid-mission for debugging.
            Dose itself is never gated by this - every scan accumulates
@@ -226,6 +240,23 @@
            again on clean shutdown, independent of this interval. <=0 disables
            the periodic refresh (those two triggers still apply). -->
       <grid_export_interval_sec>5.0</grid_export_interval_sec>
+      <!-- Per-scan geometry log (JSON Lines, one record per spray scan).
+           Records the INPUTS to the deposition model - nozzle pose, ground hit
+           point, surface normal, slant distance - and not the dose, so the
+           footprint model, the deposition constants and the grid resolution
+           all stay changeable after the fact.
+
+           The plugin credits only the cell under the cone centre while flying
+           (a live preview in deposition_report.json). Splatting the dose over
+           every cell the footprint actually covers is done afterwards:
+
+             ./splat_scan_log.py ~/UAV/spray_simulation/spray_scans.jsonl \
+                 -o ~/UAV/spray_simulation/deposition.json
+
+           Re-splatting at a different grid resolution or with different spray
+           constants then costs seconds instead of another mission. Remove this
+           element to disable logging. -->
+      <scan_log>~/UAV/spray_simulation/spray_scans.jsonl</scan_log>
     </plugin>
   </model>
 </sdf>

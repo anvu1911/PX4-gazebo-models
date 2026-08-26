@@ -86,11 +86,28 @@
             </mesh>
           </geometry>
         </collision>
+        <!-- Superseded 2026-08-25: model.obj's ground drape baked in the old
+             stress-class overlay (visible as red/orange patches) and is now
+             stale relative to spray_groundtruth.json. an_giang.glb (delivered
+             alongside the new ground truth) is a re-export of the same
+             terrain with an updated, non-stress-tinted "field_atlas" bake,
+             but gz-sim's glTF loader did not correctly walk its scene graph
+             (a 1223-node hierarchy with a baked "GazeboZUpWorldTransform"
+             root matrix - the ground rendered standing on its side instead
+             of flat). Rather than fight the loader, the transform was
+             applied by hand in Python (node 1222's matrix onto the "terrain"
+             mesh's raw vertices - world_pos now lands at x/y matching the
+             new ground truth's extent almost exactly, normal.z~0.98) and
+             re-exported as a flat OBJ - an_giang_terrain_baked.obj/.mtl,
+             texture field_atlas_baked.png (both extracted from the GLB, same
+             simple single-object format the old model.obj used, so no SDF
+             pose rotation is needed - positions are already world-frame.
+             Physics is untouched; only this <visual> changed. -->
         <visual name="visual">
           <cast_shadows>false</cast_shadows>
           <geometry>
             <mesh>
-              <uri>model://an-giang-v6-season-green-connection-safe/meshes/model.obj</uri>
+              <uri>model://an-giang-v6-season-green-connection-safe/meshes/an_giang_terrain_baked.obj</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>

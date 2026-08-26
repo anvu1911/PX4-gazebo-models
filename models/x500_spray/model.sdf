@@ -160,14 +160,16 @@
            below and the doc's S1, "altitude is the primary skill lever"). -->
       <cone_half_angle_deg>15</cone_half_angle_deg>
       <!-- Max slant range the ground probe will accept a hit at. Must cover the
-           hackathon's intended flight envelope (S1: altitude 5-20 m is the
-           primary skill lever - lower over-sprays, higher under-sprays, by
-           design) or every scan misses the ground and no dose is ever
-           recorded. Previously 3.0 m, which is below that whole envelope: it
-           silently forced every test flight down near the ground, and the
+           hackathon's intended flight envelope (altitude/speed is the primary
+           skill lever - lower/slower over-sprays, higher/faster under-sprays,
+           by design; see spray_quality_factors_v2.md S1.4, revised 2026-08-24
+           to h=2-4 m) or every scan misses the ground and no dose is ever
+           recorded. Previously 3.0 m, which is below any reasonable envelope:
+           it silently forced every test flight down near the ground, and the
            resulting "always over-sprays" reading was misdiagnosed as a
-           cone_half_angle_deg/flow_rate_lpm problem. 25 m covers up to h=20 m
-           at the plugin's steepest nozzle tilt with margin. -->
+           cone_half_angle_deg/flow_rate_lpm problem. 25 m covers the current
+           envelope (and the old 5-20 m one) with a lot of margin - no need to
+           shrink it just because the altitude range came down. -->
       <cone_max_range>25.0</cone_max_range>
       <spray_color>1.0 0.2 0.1 1.0</spray_color>
       <!-- Crop-spray look (RGBA, 0-1): a visible light-grey mist in the air,
@@ -204,14 +206,25 @@
            a separate term - this is what makes altitude the contestant's skill
            lever rather than something the sim needs a separate rule for.
 
+           REVISED 2026-08-24 (was 5.0). The 5-20 m envelope this was
+           originally tuned to was too high vs. real agricultural spray
+           practice (typically 1.5-4 m - see spray_quality_factors_v2.md S1.4).
+           Re-derived for the corrected envelope (h=2-4 m, v=3-8 m/s;
+           dose ~ 1/(h*v), NOT 1/h^2 - see the correction note atop
+           spray_quality_factors_v2.md) against literature deposition rates
+           (18.75-45 L/ha applied => ~1.3-3.2 ml/m^2 deposited at eta=0.7 -
+           see spray_grading_metrics_v2.md S7). At this value and the 15 deg
+           cone above, the envelope's center (h=3 m, v=5 m/s) lands at
+           ~1.85 ml/m^2 - within the revised D_min=1.0/D_max=3.0 band, and
+           88.8% of the full (h,v) envelope grid lands in-band (the extreme
+           low+slow and high+fast corners fall outside by design - this is
+           what makes altitude/speed choice a skill lever, not a defect).
            FROZEN per spray_quality_factors_v2.md S2.2 (flow rate, alongside
-           nozzle/tank): real pump hardware, identical for every contestant.
-           At this value and the 15 deg cone above, a clean pass in the
-           doc's own intended envelope (S1: h=15-20 m, v=5-7 m/s) lands at
-           ~1.0-1.5 ml/m^2 - within the design doc's D_min=0.5/D_max=1.5 band.
-           Lower/slower over-sprays, higher/faster under-sprays, which is the
-           intended discrimination between flight skill, not a defect. -->
-      <flow_rate_lpm>5.0</flow_rate_lpm>
+           nozzle/tank): real pump hardware, identical for every contestant -
+           this new value is frozen the same way the old one was. Do not
+           revert to 5.0 to "fix" over-spray; see the derivation above and in
+           spray_grading_metrics_v2.md S7 first. -->
+      <flow_rate_lpm>1.0</flow_rate_lpm>
       <deposition_efficiency>0.7</deposition_efficiency>
       <!-- Ground truth grid, for the in-sim deposition PREVIEW only (optional,
            and off by default). Path supports ~ expansion for $HOME.
